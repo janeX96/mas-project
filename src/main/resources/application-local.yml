@@ -1,0 +1,10 @@
+spring:
+  h2:
+    console:
+      enabled: true
+      path: '/console'
+  datasource:
+    url: 'jdbc:h2:file:C:/Users/janek/OneDrive/MAS - PROJEKT/mas-project/mas-project/grajek-db'
+  jpa:
+    hibernate:
+      ddl-auto: validate

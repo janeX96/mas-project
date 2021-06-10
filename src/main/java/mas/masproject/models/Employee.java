@@ -1,13 +1,14 @@
 package mas.masproject.models;
 
+import javax.persistence.Entity;
 import java.time.LocalDate;
 
+//@Entity
 public abstract class Employee extends Person {
     private int workYears;
     private static double maxBonus;
 
-    public Employee(String firstName, String lastName, LocalDate birthDate) {
-        super(firstName, lastName, birthDate);
+    public Employee() {
     }
 
     public abstract double calcBonus();

@@ -5,8 +5,7 @@ import java.time.LocalDate;
 public class Packer extends Employee{
     private int prevMonthPackages;
 
-    public Packer(String firstName, String lastName, LocalDate birthDate) {
-        super(firstName, lastName, birthDate);
+    public Packer() {
     }
 
     @Override
