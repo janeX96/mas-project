@@ -11,11 +11,6 @@ import java.time.LocalDate;
 @Table(name = "client")
 public class Client extends Person {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private long id;
-//
-
     @Size(min=2, max=70, message = "Pole powinno zawierać 2-70 znaków")
     @NotBlank(message = "Pole wymagane")
     @Column(name = "address")

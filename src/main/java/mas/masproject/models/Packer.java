@@ -1,16 +1,25 @@
 package mas.masproject.models;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "packer")
 public class Packer extends Employee{
-    private int prevMonthPackages;
+
+
 
     public Packer() {
     }
 
+    public Packer(String firstName, String lastName, LocalDate hireDate) {
+        super(firstName, lastName, hireDate);
+    }
+
     @Override
     public double calcBonus() {
-        double bonus = prevMonthPackages * 0.3;
+        double bonus = getPrevMonthPackages() * 0.3;
 
         if (bonus>getMaxBonus()){
             return getMaxBonus();
@@ -18,4 +27,19 @@ public class Packer extends Employee{
 
         return bonus;
     }
+
+    public int getPrevMonthPackages() {
+        // todo wyliczany z asocjiacji z zamówieniami
+        return 0;
+    }
+
+//    @Override
+//    public LocalDate getHireDate() {
+//        return super.getHireDate();
+//    }
+//
+//    @Override
+//    public void setHireDate(LocalDate hireDate) {
+//        super.setHireDate(hireDate);
+//    }
 }

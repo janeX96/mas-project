@@ -1,6 +1,7 @@
 package mas.masproject.services;
 
 import mas.masproject.models.Client;
+import mas.masproject.models.Packer;
 import mas.masproject.repositories.ClientRepository;
 import mas.masproject.repositories.EmployeeRepository;
 import org.hibernate.Session;
@@ -35,6 +36,16 @@ public class PersonService {
 
     public List<Client> getAllClients() {
         return entityManager.createQuery("from Client ").getResultList();
+    }
+
+    @Transactional
+    public Packer addPacker(Packer toCreate){
+        entityManager.persist((Packer)toCreate);
+        return toCreate;
+    }
+
+    public List<Packer> getAllPackers() {
+        return entityManager.createQuery("from Packer").getResultList();
     }
 
 }
