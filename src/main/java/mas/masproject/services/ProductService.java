@@ -21,7 +21,7 @@ public class ProductService {
     }
 
     public List<Instrument> getAllStringedInstruments() {
-        return entityManager.createQuery("from Instrument").getResultList();
+        return entityManager.createQuery("from Product where type = Instrument").getResultList();
     }
 
 

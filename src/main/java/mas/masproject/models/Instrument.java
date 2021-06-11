@@ -13,6 +13,8 @@ public class Instrument extends Product {
     @Column(name = "electronic")
     private boolean electronic;
 
+
+
     public Instrument() {
 
     }
@@ -47,4 +49,5 @@ public class Instrument extends Product {
     public void setElectronic(boolean electronic) {
         this.electronic = electronic;
     }
+
 }

@@ -3,6 +3,7 @@ package mas.masproject.models;
 import mas.masproject.models.enums.EOrderStatus;
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -23,8 +24,8 @@ public class EOrder {
     @Column(name = "status")
     private EOrderStatus status;
 
-    //@ManyToMany
-   // private Set<Product> products;
+    @ManyToMany(mappedBy = "eOrders")
+    private Set<Product> products = new HashSet<>();
 
     public EOrder(LocalDateTime subDateTime, LocalDateTime finishDateTime, EOrderStatus status) {
         this.subDateTime = subDateTime;

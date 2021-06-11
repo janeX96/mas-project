@@ -8,8 +8,6 @@ import java.time.LocalDate;
 @Table(name = "packer")
 public class Packer extends Employee{
 
-
-
     public Packer() {
     }
 
@@ -33,13 +31,4 @@ public class Packer extends Employee{
         return 0;
     }
 
-//    @Override
-//    public LocalDate getHireDate() {
-//        return super.getHireDate();
-//    }
-//
-//    @Override
-//    public void setHireDate(LocalDate hireDate) {
-//        super.setHireDate(hireDate);
-//    }
 }
