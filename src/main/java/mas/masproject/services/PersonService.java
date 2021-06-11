@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -40,7 +39,7 @@ public class PersonService {
 
     @Transactional
     public Packer addPacker(Packer toCreate){
-        entityManager.persist((Packer)toCreate);
+        entityManager.persist(toCreate);
         return toCreate;
     }
 

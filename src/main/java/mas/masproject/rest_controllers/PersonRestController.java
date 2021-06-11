@@ -39,12 +39,12 @@ public class PersonRestController {
     @GetMapping("/packers")
     ResponseEntity<List<Packer>> getPackers(){
 
-        return ResponseEntity.ok(employeeService.getAllPackers());
+        return ResponseEntity.ok(service.getAllPackers());
     }
 
     @PostMapping("/packers")
     ResponseEntity<Packer> addPacker(@RequestBody Packer packer){
-        Packer res = employeeService.addPacker(packer);
+        Packer res = service.addPacker(packer);
 
         return ResponseEntity.ok(res);
     }

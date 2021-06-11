@@ -1,13 +1,24 @@
 package mas.masproject.models;
 
-public abstract class Instrument extends Product {
+import javax.persistence.*;
 
+@Entity
+@Table(name = "instrument")
+public class Instrument extends Product {
+
+    @Column(name = "name")
     private String name;
+    @Column(name = "producer")
     private String producer;
+    @Column(name = "electronic")
     private boolean electronic;
 
-    public Instrument(double prize, String name, String producer, boolean electronic) {
-        super(prize);
+    public Instrument() {
+
+    }
+
+    public Instrument(double prize, int count, String name, String producer, boolean electronic) {
+        super(prize, count);
         this.name = name;
         this.producer = producer;
         this.electronic = electronic;
