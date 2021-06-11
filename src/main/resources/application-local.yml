@@ -4,7 +4,7 @@ spring:
       enabled: true
       path: '/console'
   datasource:
-    url: 'jdbc:h2:file:C:/Users/janek/OneDrive/MAS - PROJEKT/mas-project/mas-project/grajek-db'
+    url: 'jdbc:h2:mem:db1'      #'jdbc:h2:file:C:/Users/janek/OneDrive/MAS - PROJEKT/mas-project/mas-project/grajek-db'
   jpa:
     hibernate:
       ddl-auto: update

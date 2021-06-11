@@ -1,18 +1,25 @@
 package mas.masproject.models;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "packer")
 public class Packer extends Employee{
 
+    @OneToMany(mappedBy = "packer")
+    private Set<EOrder> orders = new HashSet<>();
+
     public Packer() {
     }
 
-    public Packer(String firstName, String lastName, LocalDate hireDate) {
-        super(firstName, lastName, hireDate);
+
+    public Packer(String firstName, String lastName, LocalDate birthDate, LocalDate hireDate) {
+        super(firstName, lastName, birthDate, hireDate);
     }
 
     @Override

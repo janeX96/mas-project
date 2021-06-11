@@ -6,6 +6,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "client")
@@ -21,12 +22,16 @@ public class Client extends Person {
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
+
+    @OneToMany(mappedBy = "client")
+    private Set<EOrder> orders;
+
     public Client() {
 
     }
 
-    public Client(String firstName, String lastName, String address, String phoneNumber) {
-        super(firstName, lastName);
+    public Client(String firstName, String lastName, LocalDate birthDate, String address, String phoneNumber) {
+        super(firstName, lastName, birthDate);
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
@@ -47,4 +52,11 @@ public class Client extends Person {
         this.phoneNumber = phoneNumber;
     }
 
+    public Set<EOrder> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<EOrder> orders) {
+        this.orders = orders;
+    }
 }

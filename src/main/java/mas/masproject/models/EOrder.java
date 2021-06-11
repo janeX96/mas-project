@@ -2,10 +2,9 @@ package mas.masproject.models;
 
 import mas.masproject.models.enums.EOrderStatus;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "eorder")
@@ -15,6 +14,7 @@ public class EOrder {
     private long id;
 
     @Column(name = "subDateTime")
+    @NotNull
     private LocalDateTime subDateTime;
 
     @Column(name = "finishDateTime")
@@ -22,15 +22,26 @@ public class EOrder {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
+    @NotNull
     private EOrderStatus status;
 
     @ManyToMany(mappedBy = "eOrders")
     private Set<Product> products = new HashSet<>();
 
-    public EOrder(LocalDateTime subDateTime, LocalDateTime finishDateTime, EOrderStatus status) {
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    @NotNull
+    private Client client;
+
+    @ManyToOne()
+    private Packer packer;
+
+    public EOrder(@NotNull LocalDateTime subDateTime, LocalDateTime finishDateTime,
+                  @NotNull EOrderStatus status, @NotNull Client client) {
         this.subDateTime = subDateTime;
         this.finishDateTime = finishDateTime;
         this.status = status;
+        this.client = client;
     }
 
     public EOrder() {
@@ -72,5 +83,36 @@ public class EOrder {
 
     public void setStatus(EOrderStatus status) {
         this.status = status;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Packer getPacker() {
+        return packer;
+    }
+
+    public void setPacker(Packer packer) {
+        this.packer = packer;
+    }
+
+    public void addProduct(Product productToAdd){
+        if (!products.contains(productToAdd)){
+            products.add(productToAdd);
+            productToAdd.addOrder(this);
+        }
     }
 }

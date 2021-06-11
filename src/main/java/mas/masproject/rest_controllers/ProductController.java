@@ -1,6 +1,7 @@
 package mas.masproject.rest_controllers;
 
 import mas.masproject.models.Instrument;
+import mas.masproject.models.Product;
 import mas.masproject.services.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,14 +19,14 @@ public class ProductController {
     }
 
     @GetMapping("/instruments")
-    ResponseEntity<List<Instrument>> getStringed(){
+    ResponseEntity<List<Instrument>> getInstruments(){
 
-        return ResponseEntity.ok(productService.getAllStringedInstruments());
+        return ResponseEntity.ok(productService.getAllInstruments());
     }
 
     @PostMapping("/instruments")
-    ResponseEntity<Instrument> addStringed(@RequestBody Instrument instrument){
-       Instrument res = productService.addStringed(instrument);
+    ResponseEntity<Product> addInstrument(@RequestBody Instrument instrument){
+       Product res = productService.addProduct(instrument);
 
         return ResponseEntity.ok(res);
     }

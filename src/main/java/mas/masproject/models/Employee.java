@@ -16,8 +16,8 @@ public abstract class Employee extends Person {
     public Employee() {
     }
 
-    public Employee(String firstName, String lastName, LocalDate hireDate) {
-        super(firstName, lastName);
+    public Employee(String firstName, String lastName, LocalDate birthDate, LocalDate hireDate) {
+        super(firstName, lastName, birthDate);
         this.hireDate = hireDate;
     }
 

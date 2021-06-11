@@ -1,6 +1,7 @@
 package mas.masproject.services;
 
 import mas.masproject.models.Instrument;
+import mas.masproject.models.Product;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,12 +16,12 @@ public class ProductService {
     private EntityManager entityManager;
 
     @Transactional
-    public Instrument addStringed(Instrument toCreate){
+    public Product addProduct(Product toCreate){
         entityManager.persist(toCreate);
         return toCreate;
     }
 
-    public List<Instrument> getAllStringedInstruments() {
+    public List<Instrument> getAllInstruments() {
         return entityManager.createQuery("from Product where type = Instrument").getResultList();
     }
 

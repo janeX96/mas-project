@@ -23,10 +23,11 @@ public abstract class Product {
     @Column(name = "type", insertable = false, updatable = false)
     public String type;
 
-    @ManyToMany()
+
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "product_eorder",
-    joinColumns = @JoinColumn(name = "id_eorder"),
-    inverseJoinColumns = @JoinColumn(name = "id_product"))
+    joinColumns = @JoinColumn(name = "product_id"),
+    inverseJoinColumns = @JoinColumn(name = "eorder_id"))
     private Set<EOrder> eOrders = new HashSet<>();
 
     public Product(double prize, int count) {
@@ -67,5 +68,20 @@ public abstract class Product {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Set<EOrder> geteOrders() {
+        return eOrders;
+    }
+
+    public void seteOrders(Set<EOrder> eOrders) {
+        this.eOrders = eOrders;
+    }
+
+    public void addOrder(EOrder eOrder) {
+        if (!eOrders.contains(eOrder)){
+            eOrders.add(eOrder);
+            eOrder.addProduct(this);
+        }
     }
 }

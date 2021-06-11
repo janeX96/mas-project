@@ -1,5 +1,5 @@
 package mas.masproject.models.enums;
 
 public enum EOrderStatus{
-    IN_PROGRESS, CANCELED, SHIPPED
+    NEW, IN_PROGRESS, CANCELED, SHIPPED
 }

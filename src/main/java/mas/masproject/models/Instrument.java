@@ -1,6 +1,8 @@
 package mas.masproject.models;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "instrument")
@@ -12,7 +14,6 @@ public class Instrument extends Product {
     private String producer;
     @Column(name = "electronic")
     private boolean electronic;
-
 
 
     public Instrument() {
