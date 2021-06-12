@@ -14,7 +14,7 @@ public class EOrderService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<EOrder> getAllOrders(){
+    public List<EOrder> getAllEOrders(){
         return entityManager.createQuery("from EOrder ").getResultList();
     }
 
