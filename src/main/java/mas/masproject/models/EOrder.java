@@ -25,7 +25,7 @@ public class EOrder {
     @NotNull
     private EOrderStatus status;
 
-    @ManyToMany(mappedBy = "eOrders")
+    @ManyToMany(mappedBy = "eOrders", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Set<Product> products = new HashSet<>();
 
     @ManyToOne

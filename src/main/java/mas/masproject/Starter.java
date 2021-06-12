@@ -30,16 +30,14 @@ public class Starter implements CommandLineRunner {
         Client c = new Client("jan","abc", LocalDate.now(),"gdzies","234123234");
         personService.addClient(c);
         EOrder order = new EOrder(LocalDateTime.now(),null, EOrderStatus.NEW,c);
-        //eOrderService.addEOrder(order);
-        Instrument p1 = new Instrument(500,5,"gitara","yamaha",true);
-        p1.setType("Instrument");
-//        Product p2 = new Instrument(440,5,"gitara","yamaha",false);
-//        Product p3 = new Instrument(800,5,"gitara","yamaha",true);
 
-        productService.addProduct(p1);
+        Instrument p1 = new Instrument(500,5,"gitara","yamaha",true);
+        //p1.setType("Instrument");
+        Product p2 = new Instrument(440,5,"gitara","yamaha",false);
+        Product p3 = new Instrument(800,5,"gitara","yamaha",true);
         order.addProduct(p1);
-//        order.addProduct(p2,2);
-//        order.addProduct(p3,3);
+        order.addProduct(p2);
+        order.addProduct(p3);
 
         Packer packer = new Packer("franek","nowy",LocalDate.now().minusYears(20),LocalDate.now().minusMonths(5));
         personService.addPacker(packer);
