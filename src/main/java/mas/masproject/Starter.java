@@ -29,21 +29,34 @@ public class Starter implements CommandLineRunner {
 
         Client c = new Client("Jan","Kowalski", LocalDate.now(),"gdzies","234123234");
         personService.addClient(c);
-        EOrder order = new EOrder(LocalDateTime.now(),null, EOrderStatus.NEW,c);
-        Instrument p1 = new Instrument(500,5,"gitara","yamaha",true);
 
+
+        Instrument p1 = new Instrument(500,5,"gitara","yamaha",true);
+        Product p2 = new Instrument(440,5,"gitara","yamaha",false);
+        Product p3 = new Instrument(1700,2,"perkusja","yamaha",false);
+        Product p4 = new Instrument(300,2,"Saksofon","yamaha",false);
+
+
+        EOrder order = new EOrder(LocalDateTime.now(),null, EOrderStatus.NEW,c);
         order.addProduct(p1);
         Packer packer = new Packer("franek","nowy",LocalDate.now().minusYears(20),LocalDate.now().minusMonths(5));
         personService.addPacker(packer);
         order.setPacker(packer);
         eOrderService.addEOrder(order);
 
-        EOrder order2 = new EOrder(LocalDateTime.now(),null, EOrderStatus.NEW,c);
-        Product p2 = new Instrument(440,5,"gitara","yamaha",false);
-        Product p3 = new Instrument(1700,2,"perkusja","yamaha",false);
+
+        EOrder order2 = new EOrder(LocalDateTime.now().minusDays(1),null, EOrderStatus.NEW,c);
         order2.addProduct(p2);
-        order2.addProduct(p3);
+        //order2.addProduct(p3);
         eOrderService.addEOrder(order2);
+
+        EOrder order3 = new EOrder(LocalDateTime.now().minusDays(5),null, EOrderStatus.NEW,c);
+        order3.addProduct(p4);
+        order3.addProduct(p3);
+        eOrderService.addEOrder(order3);
+
+
+
 
 
 

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grajek - sklep muzyczny online</title>
+    <link rel="stylesheet" href="\css\style.css" />
+</head>
+<body>
+<header>
+    <div> <h1 style="font-size:40px">Grajek</h1>
+        <p style="font-size:20px">sklep muzyczny online</p>
+    </div>
+    <img src="/images/logo.jpg" alt="Logo" style="width:150px;height:150px">
+</header>
+<nav>
+    <ul>
+        <li><a href="/index" class="myButton">Strona główna</a></li>
+        <li><a href="/orders/list" class="myButton">Nowe Zamówienia</a></li>
+        <li><a href="/orders" class="myButton">Zamówienia</a></li>
+    </ul>
+</nav>
+<main>
+    <h2>Szczegóły zamówienia</h2>
+    <div>
+        <label for="dane" ><b>Dane do wysyłki:</b></label>
+        <p id="dane" th:text="${order.getClient().getFirstName() + ' ' + order.getClient().getLastName()}"></p>
+        <p th:text="${order.getClient().getAddress()}"></p>
+        <p th:text="${'tel: ' + order.getClient().getPhoneNumber()}"></p>
+    </div>
+    <table class="table-list">
+        <thead>
+        <tr>
+            <th>Produkt</th>
+            <th>Rodzaj</th>
+            <th>Cena</th>
+        </tr>
+        </thead>
+        <tbody th:each="product : ${order.getProducts()}">
+        <tr>
+            <td th:text="${product.getName()}"></td>
+            <td th:text="${product.getType()}"></td>
+            <td th:text="${product.getPrize()}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <p th:text="${'Wartość: ' + order.getTotalAmount() + ' zł'}"></p>
+
+        <p th:href="${'/orders/list'}" class="form-button-submit">Powrót</p>
+        <a th:href="${'/orders/list'}" class="form-button-submit">Powrót</a>
+
+
+
+
+
+</main>
+<footer>
+    Jan Klejn, s16503
+</footer>
+</body>
+</html>

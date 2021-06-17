@@ -1,6 +1,8 @@
 package mas.masproject.models;
 
 import mas.masproject.models.enums.EOrderStatus;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -14,6 +16,7 @@ public class EOrder {
     private long id;
 
     @Column(name = "subDateTime")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @NotNull
     private LocalDateTime subDateTime;
 
@@ -25,7 +28,7 @@ public class EOrder {
     @NotNull
     private EOrderStatus status;
 
-    @ManyToMany(mappedBy = "eOrders", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToMany(mappedBy = "eOrders", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private Set<Product> products = new HashSet<>();
 
     @ManyToOne
@@ -47,9 +50,14 @@ public class EOrder {
     public EOrder() {
     }
 
-    //todo
+
     public double calc(){
-        return 0;
+        double amount = 0;
+        for (Product p : getProducts()) {
+            amount+= p.getPrize();
+        }
+
+        return amount;
     }
 
 

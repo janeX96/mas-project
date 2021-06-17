@@ -10,6 +10,7 @@ import mas.masproject.services.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
@@ -29,6 +30,25 @@ public class EOrderController {
     String index(){
         return "pages/index";
     }
+
+
+    @GetMapping("/orders/list")
+    public String getNewOrders(Model model){
+        List<EOrderReadModel> orders = eOrderService.getNewEOrders().stream().map(EOrderReadModel::new).collect(Collectors.toList());
+        model.addAttribute("orders", orders);
+        return "pages/new-orders-list";
+    }
+
+    @GetMapping("/orders/order_details")
+    public String getOrderDetails(@RequestParam("id") long id, Model model){
+        EOrderReadModel eOrderReadModel = new EOrderReadModel(eOrderService.findById(id));
+        model.addAttribute("order", eOrderReadModel);
+
+        return "pages/order-details";
+    }
+
+
+
 
     @GetMapping("/orders")
     String orders(Model model){
@@ -61,18 +81,8 @@ public class EOrderController {
 //        model.addAttribute("products", products);
         return "pages/orders";
 
-}
-
-
-    @GetMapping("/orders-products")
-    String ordersProducts(Model model){
-        List<EOrder> orders = eOrderService.getAllEOrders();
-        List<EOrderReadModel> readEOrders = orders.stream().map(EOrderReadModel::new).collect(Collectors.toList());
-
-        model.addAttribute("orders", readEOrders);
-
-        return"pages/orders-products";
     }
+
 
 
 

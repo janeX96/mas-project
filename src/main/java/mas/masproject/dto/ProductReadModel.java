@@ -19,6 +19,7 @@ public class ProductReadModel {
         this.id = product.getId();
         this.count = product.getCount();
         this.prize = product.getPrize();
+        this.type = product.getType();
      //   if (product.getType() == "Instrument"){
             this.electronic = ((Instrument)product).isElectronic();
             this.producer = ((Instrument)product).getProducer();
