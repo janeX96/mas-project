@@ -27,22 +27,25 @@ public class Starter implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Client c = new Client("jan","abc", LocalDate.now(),"gdzies","234123234");
+        Client c = new Client("Jan","Kowalski", LocalDate.now(),"gdzies","234123234");
         personService.addClient(c);
         EOrder order = new EOrder(LocalDateTime.now(),null, EOrderStatus.NEW,c);
-
         Instrument p1 = new Instrument(500,5,"gitara","yamaha",true);
-        //p1.setType("Instrument");
-        Product p2 = new Instrument(440,5,"gitara","yamaha",false);
-        Product p3 = new Instrument(800,5,"gitara","yamaha",true);
-        order.addProduct(p1);
-        order.addProduct(p2);
-        order.addProduct(p3);
 
+        order.addProduct(p1);
         Packer packer = new Packer("franek","nowy",LocalDate.now().minusYears(20),LocalDate.now().minusMonths(5));
         personService.addPacker(packer);
         order.setPacker(packer);
         eOrderService.addEOrder(order);
+
+        EOrder order2 = new EOrder(LocalDateTime.now(),null, EOrderStatus.NEW,c);
+        Product p2 = new Instrument(440,5,"gitara","yamaha",false);
+        Product p3 = new Instrument(1700,2,"perkusja","yamaha",false);
+        order2.addProduct(p2);
+        order2.addProduct(p3);
+        eOrderService.addEOrder(order2);
+
+
 
     }
 }

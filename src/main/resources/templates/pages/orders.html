@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grajek - sklep muzyczny online</title>
+    <link rel="stylesheet" href="css\style.css" />
+<!--    <script type="text/javascript" th:src="@{js/actions.js}"></script>-->
+</head>
+<body>
+<header>
+    <div> <h1 style="font-size:40px">Grajek</h1>
+        <p style="font-size:20px">sklep muzyczny online</p>
+    </div>
+    <img src="images/logo.jpg" alt="Logo" style="width:150px;height:150px">
+</header>
+<nav>
+    <ul>
+        <li><a href="/index" class="myButton">Strona główna</a></li>
+        <li><a href="/orders" class="myButton">Zamówienia</a></li>
+    </ul>
+</nav>
+<main>
+    <h2>Zamówienia</h2>
+
+    <label for="eorder">Zamówienie:</label>
+    <select name="eorder" id="eorder" th:field="*{orders}" th:onchange="changeProducts()">
+        <option value="-1" >Wybierz zamówienie</option>
+        <option th:each="eorder : ${orders}" th:value="${eorder.getId()}"
+                th:text="${eorder.getId()} + ' (' + ${eorder.getClient().getLastName()} + ')'" ></option>
+    </select>
+
+
+    <label for="products">Produkty:</label>
+    <select name="products" id="products" th:onchange="changeOrder()">
+        <option value="-1" >produkty</option>
+    </select>
+
+
+    <script th:inline="javascript">
+       var orders = [[${orders_products}]];
+
+        function changeProducts() {
+            var selectedOrder = eorder.options[eorder.selectedIndex].value;
+
+
+            var prods = orders[selectedOrder];
+             // alert("wybrano: " + prods[0]);
+
+            var productsList = document.getElementById("products");
+
+            while (productsList.options.length){
+                productsList.remove(0);
+            }
+
+            for (let i = 0; i < prods.length; i++) {
+                var prod = new Option(prods[i],i);
+                productsList.options.add(prod);
+            }
+        }
+
+        function changeOrder() {
+            // var productsList = document.getElementById("products");
+            // var selectedProductId = productsList.options[productsList.selectedIndex].text;
+            // alert("wybrano: " + selectedProductId);
+        }
+
+    </script>
+
+</main>
+<footer>
+    Jan Klejn, s16503
+</footer>
+</body>
+</html>

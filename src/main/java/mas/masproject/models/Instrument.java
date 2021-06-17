@@ -51,4 +51,11 @@ public class Instrument extends Product {
         this.electronic = electronic;
     }
 
+    @Override
+    public String toString() {
+        return "Instrument{" +
+                "name='" + name + '\'' +
+                ", producer='" + producer + '\'' +
+                '}';
+    }
 }

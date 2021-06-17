@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl-PL">
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,6 +24,8 @@
     <p>Firma Veto jest kliniką weterynaryjną, która potrzebuje aplikacji do umawiania
         zabiegów. Należy przechowywać informacje o weterynarzach, zwierzakach
         klientów oraz zaplanowanych i zrealizowanych zabiegach.</p>
+    <script type="text/javascript" th:src="@{js/actions.js}"></script>
+    <button type="button" th:onclick="showAlert()">Show Alert</button>
 </main>
 <footer>
     Jan Klejn, s16503
