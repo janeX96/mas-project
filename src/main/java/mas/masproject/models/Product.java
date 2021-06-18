@@ -24,7 +24,7 @@ public abstract class Product {
     public String type;
 
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(name = "product_eorder",
     joinColumns = @JoinColumn(name = "product_id"),
     inverseJoinColumns = @JoinColumn(name = "eorder_id"))
@@ -78,10 +78,10 @@ public abstract class Product {
         this.eOrders = eOrders;
     }
 
-    public void addOrder(EOrder eOrder) {
-        if (!eOrders.contains(eOrder)){
-            eOrders.add(eOrder);
-            eOrder.addProduct(this);
-        }
-    }
+//    public void addOrder(EOrder eOrder) {
+//        if (!eOrders.contains(eOrder)){
+//            eOrders.add(eOrder);
+//            eOrder.addProduct(this);
+//        }
+//    }
 }

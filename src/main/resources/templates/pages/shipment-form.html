@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grajek - sklep muzyczny online</title>
+    <link rel="stylesheet" href="\css\style.css" />
+</head>
+<body>
+<header>
+    <div> <h1 style="font-size:40px">Grajek</h1>
+        <p style="font-size:20px">sklep muzyczny online</p>
+    </div>
+    <img src="/images/logo.jpg" alt="Logo" style="width:150px;height:150px">
+</header>
+<nav>
+    <ul>
+        <li><a href="/index" class="myButton">Strona główna</a></li>
+        <li><a href="/orders/list" class="myButton">Nowe Zamówienia</a></li>
+        <li><a href="/orders" class="myButton">Zamówienia</a></li>
+    </ul>
+</nav>
+<main>
+    <h2>Realizacja zamówienia</h2>
+    <form class="form" th:object="${orderWriteModel}" th:action="@{/orders/update/{id}(id=${orderWriteModel.id})}" method="post">
+        <label for="packer">Pakowacz:<sup>*</sup></label>
+        <select name="packer" id=packer th:field="*{packerId}">
+            <option value="-1">Wybierz pakowacza</option>
+            <option th:each="packer : ${packers}" th:value="${packer.getId()}"
+                    th:text="${packer.getFirstName()} + ' (' + ${packer.getLastName()} + ')'">
+        </select>
+        <span id="error" class="errors-text"></span>
+
+        <label for="info">Uwagi do wysyłki:<sup>*</sup></label>
+        <input type="text" name="info" id="info" th:field="*{info}"/>
+        <span id="error2" class="errors-text"></span>
+
+        </div>
+        <div class="form-buttons">
+            <a th:href="${'/orders/order_details?id='+orderWriteModel.getId()}" class="button-return">Powrót</a>
+            <input type="submit" class="button-add" value="Zatwierdź"/>
+        </div>
+    </form>
+
+
+</main>
+<footer>
+    Jan Klejn, s16503
+</footer>
+</body>
+</html>

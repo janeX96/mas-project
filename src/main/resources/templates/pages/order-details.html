@@ -43,12 +43,11 @@
             <td th:text="${product.getPrize()}"></td>
         </tr>
         </tbody>
+
     </table>
     <p th:text="${'Wartość: ' + order.getTotalAmount() + ' zł'}"></p>
-
-        <p th:href="${'/orders/list'}" class="form-button-submit">Powrót</p>
-        <a th:href="${'/orders/list'}" class="form-button-submit">Powrót</a>
-
+    <p><a th:href="${'/orders/shipment?id=' + order.getId()}" class="button-add">Przekaż do realizacji</a></p>
+    <p><a th:href="${'/orders/list'}" class="button-return">Powrót</a></p>
 
 
 

@@ -28,7 +28,10 @@ public class EOrder {
     @NotNull
     private EOrderStatus status;
 
-    @ManyToMany(mappedBy = "eOrders", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @Column(name = "shipmentInfo")
+    private String shipmentInfo;
+
+    @ManyToMany(mappedBy = "eOrders", cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private Set<Product> products = new HashSet<>();
 
     @ManyToOne
@@ -117,10 +120,18 @@ public class EOrder {
         this.packer = packer;
     }
 
+    public String getShipmentInfo() {
+        return shipmentInfo;
+    }
+
+    public void setShipmentInfo(String shipmentInfo) {
+        this.shipmentInfo = shipmentInfo;
+    }
+
     public void addProduct(Product productToAdd){
         if (!products.contains(productToAdd)){
             products.add(productToAdd);
-            productToAdd.addOrder(this);
+            productToAdd.geteOrders().add(this);
         }
     }
 }

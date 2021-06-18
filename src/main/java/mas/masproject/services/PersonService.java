@@ -47,4 +47,7 @@ public class PersonService {
         return entityManager.createQuery("from Packer").getResultList();
     }
 
+    public Packer findById(long id) {
+       return (Packer)entityManager.createQuery("from Packer where id=?1").setParameter(1,id).getSingleResult();
+    }
 }

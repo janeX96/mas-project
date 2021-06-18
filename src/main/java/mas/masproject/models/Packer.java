@@ -22,6 +22,14 @@ public class Packer extends Employee{
         super(firstName, lastName, birthDate, hireDate);
     }
 
+    public Set<EOrder> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<EOrder> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public double calcBonus() {
         double bonus = getPrevMonthPackages() * 0.3;

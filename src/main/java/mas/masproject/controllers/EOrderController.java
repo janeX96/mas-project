@@ -1,18 +1,22 @@
 package mas.masproject.controllers;
 
 import mas.masproject.dto.EOrderReadModel;
+import mas.masproject.dto.EOrderWriteModel;
 import mas.masproject.dto.ProductReadModel;
 import mas.masproject.models.EOrder;
 import mas.masproject.models.Instrument;
+import mas.masproject.models.Packer;
 import mas.masproject.models.Product;
+import mas.masproject.models.enums.EOrderStatus;
 import mas.masproject.services.EOrderService;
+import mas.masproject.services.PersonService;
 import mas.masproject.services.ProductService;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -20,10 +24,12 @@ import java.util.stream.Collectors;
 public class EOrderController {
     private EOrderService eOrderService;
     private ProductService productService;
+    private PersonService personService;
 
-    public EOrderController(EOrderService eOrderService, ProductService productService) {
+    public EOrderController(EOrderService eOrderService, ProductService productService, PersonService personService) {
         this.eOrderService = eOrderService;
         this.productService = productService;
+        this.personService = personService;
     }
 
     @GetMapping("/index")
@@ -47,12 +53,34 @@ public class EOrderController {
         return "pages/order-details";
     }
 
+    @GetMapping("/orders/shipment")
+    public String shipmentForm(@RequestParam("id") long id, Model model){
+        EOrder eOrder = eOrderService.findById(id);
+        EOrderWriteModel orderWriteModel = new EOrderWriteModel(eOrder);
+        List<Packer> packers = personService.getAllPackers();
+
+        model.addAttribute("orderWriteModel",orderWriteModel);
+        model.addAttribute("packers",packers);
+
+        return "pages/shipment-form";
+    }
+
+
+    @Transactional
+    @PostMapping("orders/update/{id}")
+    public String updateOrder(@PathVariable int id, @ModelAttribute EOrderWriteModel toUpdate, Model model){
+
+        Packer packer = personService.findById(toUpdate.getPackerId());
+        eOrderService.updateEOrder(id, packer, toUpdate.getInfo());
+
+        return "pages/confirmation";
+    }
 
 
 
     @GetMapping("/orders")
     String orders(Model model){
-        List<EOrder> orders = eOrderService.getAllEOrders();
+        List<EOrder> orders = eOrderService.getEOrdersByStatus(EOrderStatus.IN_PROGRESS);
         List<EOrderReadModel> readEOrders = orders.stream().map(EOrderReadModel::new).collect(Collectors.toList());
 
         Map<Long, List<String>> orderProductMap = new HashMap<>();

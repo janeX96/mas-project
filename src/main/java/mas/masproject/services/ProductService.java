@@ -17,7 +17,7 @@ public class ProductService {
 
     @Transactional
     public Product addProduct(Product toCreate){
-        entityManager.persist(toCreate);
+        entityManager.merge(toCreate);
         return toCreate;
     }
 
