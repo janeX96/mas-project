@@ -7,6 +7,7 @@ import mas.masproject.models.enums.EOrderStatus;
 import mas.masproject.services.EOrderService;
 import mas.masproject.services.PersonService;
 import mas.masproject.services.ProductService;
+import mas.masproject.services.RepairService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,8 @@ public class Starter implements CommandLineRunner {
     public PersonService personService = new PersonService();
     @Autowired
     public ProductService productService = new ProductService();
+    @Autowired
+    public RepairService repairService = new RepairService();
 
     @Override
     public void run(String... args) throws Exception {
@@ -86,8 +89,14 @@ public class Starter implements CommandLineRunner {
         Luthier luthier = new Luthier("Michał", "Kowal",LocalDate.now().minusYears(38), LocalDate.now().minusYears(5));
         personService.save(luthier);
 
-        luthier.addRepair(p1,c);
+        Repair repair = luthier.addRepair(p1,c);
 
-        personService.update(luthier);
+        repairService.save(repair);
+
+        repair.setRate(new Rate(3,"Ok"));
+
+        repairService.update(repair);
+
+
     }
 }

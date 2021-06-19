@@ -33,11 +33,13 @@ public class Luthier extends Employee {
         return 0;
     }
 
-    public void addRepair(Instrument instrument, Client client){
+    public Repair addRepair(Instrument instrument, Client client){
         Repair repair = new Repair(this,instrument,client);
         this.repairs.add(repair);
         instrument.addRepair(repair);
         client.addRepair(repair);
+
+        return repair;
     }
 
     public void addRepair(Repair repair) {

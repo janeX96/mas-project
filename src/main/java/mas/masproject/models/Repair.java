@@ -38,6 +38,11 @@ public class Repair {
     @Column(name = "finished")
     private boolean finished;
 
+
+    @OneToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    @JoinColumn(name = "rate_id")
+    private Rate rate;
+
     public Repair() {
     }
 
@@ -115,7 +120,26 @@ public class Repair {
         return finished;
     }
 
+    public Rate getRate() {
+        return rate;
+    }
+
+
+    public void setRate(Rate rate) {
+        if (this.rate == null || this.rate != rate){
+            this.rate = rate;
+            rate.setRepair(this);
+        }
+    }
+
     public void setFinished(boolean finished) {
         this.finished = finished;
+
+        if (finished){
+            setFinishDateTime(LocalDateTime.now());
+        }
+        else {
+            setFinishDateTime(null);
+        }
     }
 }
