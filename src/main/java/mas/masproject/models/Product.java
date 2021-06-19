@@ -1,7 +1,9 @@
 package mas.masproject.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 //@MappedSuperclass
@@ -12,7 +14,7 @@ public abstract class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long productId;
 
     @Column(name = "prize")
     private double prize;
@@ -24,10 +26,7 @@ public abstract class Product {
     public String type;
 
 
-    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    @JoinTable(name = "product_eorder",
-    joinColumns = @JoinColumn(name = "product_id"),
-    inverseJoinColumns = @JoinColumn(name = "eorder_id"))
+    @ManyToMany(mappedBy = "products", cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private Set<EOrder> eOrders = new HashSet<>();
 
     public Product(double prize, int count) {
@@ -54,12 +53,12 @@ public abstract class Product {
         this.count = count;
     }
 
-    public long getId() {
-        return id;
+    public long getProductId() {
+        return productId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setProductId(long productId) {
+        this.productId = productId;
     }
 
     public String getType() {
@@ -78,10 +77,10 @@ public abstract class Product {
         this.eOrders = eOrders;
     }
 
-//    public void addOrder(EOrder eOrder) {
-//        if (!eOrders.contains(eOrder)){
-//            eOrders.add(eOrder);
-//            eOrder.addProduct(this);
-//        }
-//    }
+    public void addOrder(EOrder eOrder) {
+        if (!eOrders.contains(eOrder)){
+            eOrders.add(eOrder);
+            eOrder.addProduct(this);
+        }
+    }
 }

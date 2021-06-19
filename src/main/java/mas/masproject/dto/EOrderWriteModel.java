@@ -17,7 +17,7 @@ public class EOrderWriteModel {
     private String info;
 
     public EOrderWriteModel(EOrder eOrder) {
-        this.id = eOrder.getId();
+        this.id = eOrder.geteOrderId();
     }
 
     public EOrderWriteModel() {

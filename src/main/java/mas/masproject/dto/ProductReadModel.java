@@ -16,7 +16,7 @@ public class ProductReadModel {
     private boolean electronic;
 
     public ProductReadModel(Product product) {
-        this.id = product.getId();
+        this.id = product.getProductId();
         this.count = product.getCount();
         this.prize = product.getPrize();
         this.type = product.getType();

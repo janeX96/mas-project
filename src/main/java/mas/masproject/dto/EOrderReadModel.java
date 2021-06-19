@@ -34,7 +34,7 @@ public class EOrderReadModel {
    // private PackerReadModel packer;
 
     public EOrderReadModel(EOrder eOrder) {
-        this.id = eOrder.getId();
+        this.id = eOrder.geteOrderId();
         this.client = new ClientReadModel(eOrder.getClient());
         this.subDateTime = eOrder.getSubDateTime();
         this.finishDateTime = eOrder.getFinishDateTime();

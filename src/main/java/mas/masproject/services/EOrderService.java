@@ -12,23 +12,27 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+@Transactional
 @Service
 public class EOrderService {
 
     @PersistenceContext
     private EntityManager entityManager;
 
+    public EOrderService() {
+    }
+
     public List<EOrder> getAllEOrders(){
         return entityManager.createQuery("from EOrder ").getResultList();
     }
 
-    @Transactional
-    public EOrder addEOrder(EOrder toCreate) {
+
+    public EOrder save(EOrder toCreate) {
         entityManager.persist(toCreate);
         return toCreate;
     }
 
-    @Transactional
+
     public EOrder update(EOrder toUpdate) {
         entityManager.merge(toUpdate);
         return toUpdate;

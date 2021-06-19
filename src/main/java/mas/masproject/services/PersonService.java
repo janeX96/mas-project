@@ -18,11 +18,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+@Transactional
 @Service
 public class PersonService {
 
     @PersistenceContext
     private EntityManager entityManager;
+
 
     public PersonService() {
     }

@@ -1,17 +1,19 @@
 package mas.masproject.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "packer")
 public class Packer extends Employee{
 
-    @OneToMany(mappedBy = "packer")
+    @OneToMany(mappedBy = "packer",cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     private Set<EOrder> orders = new HashSet<>();
 
     public Packer() {
@@ -22,6 +24,13 @@ public class Packer extends Employee{
         super(firstName, lastName, birthDate, hireDate);
     }
 
+    public void addEOrder(EOrder eOrder){
+        if (!orders.contains(eOrder)){
+            orders.add(eOrder);
+            eOrder.setPacker(this);
+        }
+    }
+
     public Set<EOrder> getOrders() {
         return orders;
     }
@@ -30,6 +39,7 @@ public class Packer extends Employee{
         this.orders = orders;
     }
 
+    // premia wyliczana na zasadzie: [(liczba paczek z poprzedniego miesiąca) * 0,3] zł
     @Override
     public double calcBonus() {
         double bonus = getPrevMonthPackages() * 0.3;
@@ -41,9 +51,15 @@ public class Packer extends Employee{
         return bonus;
     }
 
+    //liczba paczek spakowanych w poprzednim miesiącu
     public int getPrevMonthPackages() {
-        // todo wyliczany z asocjiacji z zamówieniami
-        return 0;
+
+        int count = this.orders
+                        .stream()
+                        .filter(o -> o.getFinishDateTime().getMonth() == LocalDate.now().minusMonths(1).getMonth())
+                        .collect(Collectors.toList()).size();
+
+        return count;
     }
 
 }

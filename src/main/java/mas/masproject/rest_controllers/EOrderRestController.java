@@ -35,7 +35,7 @@ public class EOrderRestController {
 
     @PostMapping("/eorders")
     ResponseEntity<EOrder> addEOrder(@RequestBody EOrder eOrder){
-        EOrder res = eOrderService.addEOrder(eOrder);
+        EOrder res = eOrderService.save(eOrder);
 
         return ResponseEntity.ok(res);
     }

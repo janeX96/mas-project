@@ -6,6 +6,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -23,8 +24,8 @@ public class Client extends Person {
     private String phoneNumber;
 
 
-    @OneToMany(mappedBy = "client")
-    private Set<EOrder> orders;
+    @OneToMany(mappedBy = "client", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<EOrder> orders = new HashSet<>();
 
     public Client() {
 
@@ -58,5 +59,12 @@ public class Client extends Person {
 
     public void setOrders(Set<EOrder> orders) {
         this.orders = orders;
+    }
+
+    public void addEOrder(EOrder eOrder) {
+        if (!orders.contains(eOrder)){
+            orders.add(eOrder);
+            eOrder.setClient(this);
+        }
     }
 }

@@ -13,7 +13,7 @@ import java.util.*;
 public class EOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long eOrderId;
 
     @Column(name = "subDateTime")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -31,23 +31,25 @@ public class EOrder {
     @Column(name = "shipmentInfo")
     private String shipmentInfo;
 
-    @ManyToMany(mappedBy = "eOrders", cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+
+    @ManyToMany
+    @JoinTable(name = "product_eorder",
+            joinColumns = @JoinColumn(name = "eorder_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Set<Product> products = new HashSet<>();
 
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "client_id", nullable = false)
     @NotNull
     private Client client;
 
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     private Packer packer;
 
-    public EOrder(@NotNull LocalDateTime subDateTime, LocalDateTime finishDateTime,
-                  @NotNull EOrderStatus status, @NotNull Client client) {
+    public EOrder(LocalDateTime subDateTime, LocalDateTime finishDateTime, EOrderStatus status) {
         this.subDateTime = subDateTime;
         this.finishDateTime = finishDateTime;
         this.status = status;
-        this.client = client;
     }
 
     public EOrder() {
@@ -64,12 +66,12 @@ public class EOrder {
     }
 
 
-    public long getId() {
-        return id;
+    public long geteOrderId() {
+        return eOrderId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void seteOrderId(long eOrderId) {
+        this.eOrderId = eOrderId;
     }
 
     public LocalDateTime getSubDateTime() {
@@ -110,6 +112,7 @@ public class EOrder {
 
     public void setClient(Client client) {
         this.client = client;
+        client.addEOrder(this);
     }
 
     public Packer getPacker() {
@@ -118,6 +121,7 @@ public class EOrder {
 
     public void setPacker(Packer packer) {
         this.packer = packer;
+        packer.addEOrder(this);
     }
 
     public String getShipmentInfo() {
@@ -131,7 +135,7 @@ public class EOrder {
     public void addProduct(Product productToAdd){
         if (!products.contains(productToAdd)){
             products.add(productToAdd);
-            productToAdd.geteOrders().add(this);
+            productToAdd.addOrder(this);
         }
     }
 }

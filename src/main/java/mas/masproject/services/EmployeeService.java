@@ -13,6 +13,9 @@ public class EmployeeService {
     @PersistenceContext
     private EntityManager entityManager;
 
+    public EmployeeService() {
+    }
+
     @Transactional
     public Packer addPacker(Packer toCreate){
         entityManager.persist(toCreate);
