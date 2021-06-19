@@ -29,6 +29,10 @@ public abstract class Product {
     @ManyToMany(mappedBy = "products", cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private Set<EOrder> eOrders = new HashSet<>();
 
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<StationarySale> stationarySales = new HashSet<>();
+
+
     public Product(double prize, int count) {
         this.prize = prize;
         this.count = count;
@@ -77,10 +81,28 @@ public abstract class Product {
         this.eOrders = eOrders;
     }
 
+    public Set<StationarySale> getStationarySales() {
+        return stationarySales;
+    }
+
+    public void setStationarySales(Set<StationarySale> stationarySales) {
+        this.stationarySales = stationarySales;
+    }
+
     public void addOrder(EOrder eOrder) {
         if (!eOrders.contains(eOrder)){
             eOrders.add(eOrder);
             eOrder.addProduct(this);
         }
+    }
+
+    public void addStationarySale(Seller seller){
+        StationarySale stationarySale = new StationarySale(seller,this);
+        this.stationarySales.add(stationarySale);
+        seller.addStationarySale(stationarySale);
+    }
+
+    public void addStationarySale(StationarySale stationarySale) {
+        this.stationarySales.add(stationarySale);
     }
 }

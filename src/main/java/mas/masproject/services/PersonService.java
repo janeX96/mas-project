@@ -2,6 +2,7 @@ package mas.masproject.services;
 
 import mas.masproject.models.Client;
 import mas.masproject.models.Packer;
+import mas.masproject.models.Seller;
 import mas.masproject.repositories.ClientRepository;
 import mas.masproject.repositories.EmployeeRepository;
 import org.hibernate.Session;
@@ -28,6 +29,22 @@ public class PersonService {
 
     public PersonService() {
     }
+
+    public Packer save(Packer toCreate){
+        entityManager.persist(toCreate);
+        return toCreate;
+    }
+
+    public Seller save(Seller toCreate){
+        entityManager.persist(toCreate);
+        return toCreate;
+    }
+
+    public Seller update(Seller toCreate){
+        entityManager.merge(toCreate);
+        return toCreate;
+    }
+
 
     @Transactional
     public Client addClient(Client toCreate){

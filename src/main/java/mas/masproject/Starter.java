@@ -71,5 +71,12 @@ public class Starter implements CommandLineRunner {
 
         eOrderService.save(order3);
 
+        Seller seller1 = new Seller("Andrzej", "Nowak",LocalDate.now().minusYears(22), LocalDate.now().minusYears(2));
+        personService.save(seller1);
+
+        seller1.addStationarySale(p1);
+        seller1.addStationarySale(p3);
+
+        personService.update(seller1);
     }
 }
