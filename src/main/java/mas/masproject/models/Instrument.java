@@ -15,6 +15,9 @@ public class Instrument extends Product {
     @Column(name = "electronic")
     private boolean electronic;
 
+    @OneToMany(mappedBy = "instrument", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<Repair> repairs = new HashSet<>();
+
 
     public Instrument() {
 
@@ -51,11 +54,30 @@ public class Instrument extends Product {
         this.electronic = electronic;
     }
 
+    public Set<Repair> getRepairs() {
+        return repairs;
+    }
+
+    public void setRepairs(Set<Repair> repairs) {
+        this.repairs = repairs;
+    }
+
     @Override
     public String toString() {
         return "Instrument{" +
                 "name='" + name + '\'' +
                 ", producer='" + producer + '\'' +
                 '}';
+    }
+
+    public void addRepair(Luthier luthier, Client client){
+        Repair repair = new Repair(luthier,this, client);
+        this.repairs.add(repair);
+        luthier.addRepair(repair);
+        client.addRepair(repair);
+    }
+
+    public void addRepair(Repair repair) {
+        this.repairs.add(repair);
     }
 }

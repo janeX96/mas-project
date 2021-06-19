@@ -82,5 +82,12 @@ public class Starter implements CommandLineRunner {
         seller1.addStationarySale(p3);
 
         personService.update(seller1);
+
+        Luthier luthier = new Luthier("Michał", "Kowal",LocalDate.now().minusYears(38), LocalDate.now().minusYears(5));
+        personService.save(luthier);
+
+        luthier.addRepair(p1,c);
+
+        personService.update(luthier);
     }
 }

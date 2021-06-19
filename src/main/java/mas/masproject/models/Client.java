@@ -27,6 +27,9 @@ public class Client extends Person {
     @OneToMany(mappedBy = "client", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<EOrder> orders = new HashSet<>();
 
+    @OneToMany(mappedBy = "client", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<Repair> repairs = new HashSet<>();
+
     public Client() {
 
     }
@@ -66,5 +69,16 @@ public class Client extends Person {
             orders.add(eOrder);
             eOrder.setClient(this);
         }
+    }
+
+    public void addRepair(Instrument instrument, Luthier luthier){
+        Repair repair = new Repair(luthier,instrument,this);
+        this.repairs.add(repair);
+        instrument.addRepair(repair);
+        luthier.addRepair(repair);
+    }
+
+    public void addRepair(Repair repair) {
+        this.repairs.add(repair);
     }
 }

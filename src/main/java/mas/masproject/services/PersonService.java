@@ -2,6 +2,7 @@ package mas.masproject.services;
 
 import mas.masproject.models.Client;
 import mas.masproject.models.Packer;
+import mas.masproject.models.Person;
 import mas.masproject.models.Seller;
 import mas.masproject.repositories.ClientRepository;
 import mas.masproject.repositories.EmployeeRepository;
@@ -30,19 +31,15 @@ public class PersonService {
     public PersonService() {
     }
 
-    public Packer save(Packer toCreate){
+    public Person save(Person toCreate){
         entityManager.persist(toCreate);
         return toCreate;
     }
 
-    public Seller save(Seller toCreate){
-        entityManager.persist(toCreate);
-        return toCreate;
-    }
 
-    public Seller update(Seller toCreate){
-        entityManager.merge(toCreate);
-        return toCreate;
+    public Person update(Person toUpdate){
+        entityManager.merge(toUpdate);
+        return toUpdate;
     }
 
 
