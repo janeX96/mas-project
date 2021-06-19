@@ -2,6 +2,7 @@ package mas.masproject;
 
 
 import mas.masproject.models.*;
+import mas.masproject.models.enums.AlbumType;
 import mas.masproject.models.enums.EOrderStatus;
 import mas.masproject.services.EOrderService;
 import mas.masproject.services.PersonService;
@@ -38,10 +39,13 @@ public class Starter implements CommandLineRunner {
         Product p3 = new Instrument(1700,2,"perkusja","yamaha",false);
         Product p4 = new Instrument(300,2,"Saksofon","yamaha",false);
 
+        Product p5 = new MusicAlbum(80,10,"Rammstein","Rammstein",2019, 160, AlbumType.CD);
+
         productService.addProduct(p1);
         productService.addProduct(p2);
         productService.addProduct(p3);
         productService.addProduct(p4);
+        productService.addProduct(p5);
 
         EOrder order = new EOrder(LocalDateTime.now(),null, EOrderStatus.NEW);
         order.setClient(c);
