@@ -105,4 +105,11 @@ public abstract class Product {
     public void addStationarySale(StationarySale stationarySale) {
         this.stationarySales.add(stationarySale);
     }
+
+    public void removeEOrder(EOrder eOrder) {
+        if (this.eOrders.contains(eOrder)){
+            this.eOrders.remove(eOrder);
+            eOrder.removeProduct(this);
+        }
+    }
 }

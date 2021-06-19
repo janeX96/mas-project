@@ -5,8 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "luthier")
@@ -26,11 +29,22 @@ public class Luthier extends Employee {
 
     @Override
     public double calcBonus() {
-        return 0;
+        double bonus = getPrevMonthRepairs() * 0.5;
+
+        if (bonus>getMaxBonus()){
+            return getMaxBonus();
+        }
+
+        return bonus;
     }
 
     public int getPrevMonthRepairs() {
-        return 0;
+        int count = this.repairs
+                .stream()
+                .filter(r -> r.getFinishDateTime().getMonth() == LocalDate.now().minusMonths(1).getMonth())
+                .collect(Collectors.toList()).size();
+
+        return count;
     }
 
     public Repair addRepair(Instrument instrument, Client client){

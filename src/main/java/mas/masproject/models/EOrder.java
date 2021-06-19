@@ -138,4 +138,13 @@ public class EOrder {
             productToAdd.addOrder(this);
         }
     }
+
+    public void removeProduct(Product product){
+        if (this.products.contains(product)){
+            this.products.remove(product);
+            product.removeEOrder(this);
+        }
+
+
+    }
 }
