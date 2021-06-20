@@ -33,6 +33,10 @@ public class StationarySale {
         this.saleTime = LocalDateTime.now();
     }
 
+    public long getId() {
+        return id;
+    }
+
     public LocalDateTime getSaleTime() {
         return saleTime;
     }
@@ -57,4 +61,10 @@ public class StationarySale {
         this.product = product;
     }
 
+    @Override
+    public String toString() {
+        return "StationarySale{" +
+                "saleTime=" + saleTime +
+                '}';
+    }
 }

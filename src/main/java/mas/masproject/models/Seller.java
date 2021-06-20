@@ -50,9 +50,11 @@ public class Seller extends Employee {
         this.stationarySales.add(stationarySale);
     }
 
+    //dodanie sprzedaży stacjonarnej
     public void addStationarySale(Product product) {
         StationarySale stationarySale = new StationarySale(this, product);
         this.stationarySales.add(stationarySale);
         product.addStationarySale(stationarySale);
     }
+
 }

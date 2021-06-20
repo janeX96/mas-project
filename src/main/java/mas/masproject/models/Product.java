@@ -1,12 +1,10 @@
 package mas.masproject.models;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-//@MappedSuperclass
+
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
@@ -89,6 +87,7 @@ public abstract class Product {
         this.stationarySales = stationarySales;
     }
 
+    //połączenie z zamówieniem
     public void addOrder(EOrder eOrder) {
         if (!eOrders.contains(eOrder)){
             eOrders.add(eOrder);
@@ -96,16 +95,19 @@ public abstract class Product {
         }
     }
 
+    //połączenie ze sprzedażą stacjonarną
     public void addStationarySale(Seller seller){
         StationarySale stationarySale = new StationarySale(seller,this);
         this.stationarySales.add(stationarySale);
         seller.addStationarySale(stationarySale);
     }
 
+    //połączenie ze sprzedażą stacjonarną (w przypadku od drugiej strony)
     public void addStationarySale(StationarySale stationarySale) {
         this.stationarySales.add(stationarySale);
     }
 
+    //usunięcie z zamówienia (w przypadku jego usuwania)
     public void removeEOrder(EOrder eOrder) {
         if (this.eOrders.contains(eOrder)){
             this.eOrders.remove(eOrder);

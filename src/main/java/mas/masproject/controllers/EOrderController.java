@@ -2,11 +2,8 @@ package mas.masproject.controllers;
 
 import mas.masproject.dto.EOrderReadModel;
 import mas.masproject.dto.EOrderWriteModel;
-import mas.masproject.dto.ProductReadModel;
 import mas.masproject.models.EOrder;
-import mas.masproject.models.Instrument;
 import mas.masproject.models.Packer;
-import mas.masproject.models.Product;
 import mas.masproject.models.enums.EOrderStatus;
 import mas.masproject.services.EOrderService;
 import mas.masproject.services.PersonService;
@@ -86,34 +83,18 @@ public class EOrderController {
 
         Map<Long, List<String>> orderProductMap = new HashMap<>();
 
-        //List<ProductReadModel> products = new ArrayList<>();
-
         for (EOrderReadModel o: readEOrders) {
                 orderProductMap.put(o.getId(), o.getProducts()
                                                 .stream()
                                                 .map(p -> { return p.toString(); }).collect(Collectors.toList()));
             }
 
-//
-//        Map<Long,String> productName = new HashMap<>();
-//        for (int i = 0; i < orders.size(); i++) {
-//            products.addAll(orders.get(i).getProducts());
-//            List<Product> prods = List.copyOf(orders.get(i).getProducts());
-//            for (int j = 0; j < prods.size(); j++) {
-//                productName.put(prods.get(j).getId(), ((Instrument)prods.get(j)).getName());
-//            }
-//                orderProductMap.put(readEOrders.get(i).getId(), orders.get(i).getProducts().stream().map(Product::getId).collect(Collectors.toList()));
-//        }
 
         model.addAttribute("orders", readEOrders);
         model.addAttribute("orders_products", orderProductMap);
-//        model.addAttribute("products_names", productName);
-//        model.addAttribute("products", products);
+
         return "pages/orders";
 
     }
-
-
-
 
 }

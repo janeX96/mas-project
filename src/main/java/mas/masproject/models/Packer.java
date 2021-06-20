@@ -39,10 +39,10 @@ public class Packer extends Employee{
         this.orders = orders;
     }
 
-    // premia wyliczana na zasadzie: [(liczba napraw z poprzedniego miesiąca) * 2] zł
+    // premia wyliczana na zasadzie: [(liczba spakowanych przesyłek z poprzedniego miesiąca) * 0,3] zł
     @Override
     public double calcBonus() {
-        double bonus = getPrevMonthPackages() * 2;
+        double bonus = getPrevMonthPackages() * 0.3;
 
         if (bonus>getMaxBonus()){
             return getMaxBonus();

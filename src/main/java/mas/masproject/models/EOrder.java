@@ -57,6 +57,7 @@ public class EOrder {
     }
 
 
+    //wyliczenie kosztu zamówienia
     public double calc(){
         double amount = 0;
         for (Product p : getProducts()) {

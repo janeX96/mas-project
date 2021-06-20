@@ -142,4 +142,15 @@ public class Repair {
             setFinishDateTime(null);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Repair{" +
+                "description='" + description + '\'' +
+                ", startDateTime=" + startDateTime +
+                ", finishDateTime=" + finishDateTime +
+                ", clientPhoneNum='" + clientPhoneNum + '\'' +
+                ", finished=" + finished +
+                '}';
+    }
 }

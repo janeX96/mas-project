@@ -27,9 +27,10 @@ public class Luthier extends Employee {
         super(firstName, lastName, birthDate, hireDate);
     }
 
+    //premia wyliczana w sposób: [(liczba napraw z poprzedniego miesiąca) * 2] zł
     @Override
     public double calcBonus() {
-        double bonus = getPrevMonthRepairs() * 0.5;
+        double bonus = getPrevMonthRepairs() * 2;
 
         if (bonus>getMaxBonus()){
             return getMaxBonus();
@@ -38,6 +39,7 @@ public class Luthier extends Employee {
         return bonus;
     }
 
+    // wyliczenie ilości napraw z poprzedniego miesiąca
     public int getPrevMonthRepairs() {
         int count = this.repairs
                 .stream()

@@ -75,6 +75,15 @@ public class Rate {
             this.repair = repair;
             repair.setRate(this);
         }
+    }
 
+
+    @Override
+    public String toString() {
+        return "Rate{" +
+                "grade=" + grade +
+                ", rateDateTime=" + rateDateTime +
+                ", comment='" + comment + '\'' +
+                '}';
     }
 }
