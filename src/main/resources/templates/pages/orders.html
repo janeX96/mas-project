@@ -28,7 +28,7 @@
     <select name="eorder" id="eorder" th:field="*{orders}" th:onchange="changeProducts()">
         <option value="-1" >Wybierz zamówienie</option>
         <option th:each="eorder : ${orders}" th:value="${eorder.getId()}"
-                th:text="${eorder.getId()} + ' (' + ${eorder.getClient().getLastName()} + ')'" ></option>
+                th:text="${eorder.getFormattedSubDateTime()} + ' (' + ${eorder.getClient().getLastName()} + ')'" ></option>
     </select>
 
 

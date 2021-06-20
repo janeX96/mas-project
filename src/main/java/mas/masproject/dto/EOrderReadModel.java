@@ -10,12 +10,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class EOrderReadModel {
     private long id;
+
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime subDateTime;
@@ -61,7 +63,7 @@ public class EOrderReadModel {
     }
 
     public String getFormattedSubDateTime() {
-        String splitted[] = getSubDateTime().toString().split("T");
+        String splitted[] = getSubDateTime().truncatedTo(ChronoUnit.MINUTES).toString().split("T");
         String myDate = splitted[0] + ", godz: "+ splitted[1];
 
         return myDate;
