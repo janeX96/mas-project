@@ -64,8 +64,7 @@ public class Instrument extends Product {
 
     @Override
     public String toString() {
-        return "Instrument: " +
-                 name +
+        return  name +
                 ", producent: " + producer;
     }
 

@@ -77,8 +77,7 @@ public class MusicAlbum extends Product{
 
     @Override
     public String toString() {
-        return "Album: " +
-                 title +
+        return  title +
                 ", wykonawca: " + performer +
                 ", rok: " + pubYear +
                 ", długość: " + length +

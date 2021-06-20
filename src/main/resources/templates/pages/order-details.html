@@ -38,15 +38,15 @@
         </thead>
         <tbody th:each="product : ${order.getProducts()}">
         <tr>
-            <td th:text="${product.getName()}"></td>
+            <td th:text="${product}"></td>
             <td th:text="${product.getType()}"></td>
             <td th:text="${product.getPrize()}"></td>
         </tr>
         </tbody>
 
     </table>
-    <p th:text="${'Wartość: ' + order.getTotalAmount() + ' zł'}"></p>
-    <p><a th:href="${'/orders/shipment?id=' + order.getId()}" class="button-add">Przekaż do realizacji</a></p>
+    <p th:text="${'Wartość: ' + order.calc() + ' zł'}"></p>
+    <p><a th:href="${'/orders/shipment?id=' + order.geteOrderId()}" class="button-add">Przekaż do realizacji</a></p>
     <p><a th:href="${'/orders/list'}" class="button-return">Powrót</a></p>
 
 

@@ -45,8 +45,8 @@ public class EOrderController {
 
     @GetMapping("/orders/order_details")
     public String getOrderDetails(@RequestParam("id") long id, Model model){
-        EOrderReadModel eOrderReadModel = new EOrderReadModel(eOrderService.findById(id));
-        model.addAttribute("order", eOrderReadModel);
+        EOrder eOrder = eOrderService.findById(id);
+        model.addAttribute("order", eOrder);
 
         return "pages/order-details";
     }
@@ -59,6 +59,7 @@ public class EOrderController {
 
         model.addAttribute("orderWriteModel",orderWriteModel);
         model.addAttribute("packers",packers);
+        model.addAttribute("default","");
 
         return "pages/shipment-form";
     }
@@ -86,8 +87,9 @@ public class EOrderController {
         //List<ProductReadModel> products = new ArrayList<>();
 
         for (EOrderReadModel o: readEOrders) {
-                orderProductMap.put(o.getId(), o.getProducts().stream().map(p -> {return p.getName() +
-                                                    ", " + p.getPrize() + ", " + p.getCount(); }).collect(Collectors.toList()));
+                orderProductMap.put(o.getId(), o.getProducts()
+                                                .stream()
+                                                .map(p -> { return p.toString(); }).collect(Collectors.toList()));
             }
 
 //

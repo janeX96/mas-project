@@ -23,13 +23,14 @@
 <main>
     <h2>Realizacja zamówienia</h2>
     <form class="form" th:object="${orderWriteModel}" th:action="@{/orders/update/{id}(id=${orderWriteModel.id})}" method="post">
+
         <label for="packer">Pakowacz:<sup>*</sup></label>
-        <select name="packer" id=packer th:field="*{packerId}">
-            <option value="-1">Wybierz pakowacza</option>
+        <select name="packer" id="packer" th:field="*{packerId}" >
             <option th:each="packer : ${packers}" th:value="${packer.getId()}"
                     th:text="${packer.getFirstName()} + ' (' + ${packer.getLastName()} + ')'">
         </select>
-        <span id="error" class="errors-text"></span>
+        <span id="errorPacker" class="errors-text" th:value="${default}"></span>
+
 
         <label for="info">Uwagi do wysyłki:<sup>*</sup></label>
         <input type="text" name="info" id="info" th:field="*{info}"/>

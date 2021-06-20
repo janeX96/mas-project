@@ -35,33 +35,6 @@ public class ClientController {
         return "pages/client-index";
     }
 
-    @PostMapping("/order")
-    String saveOrder(@ModelAttribute("eorder") EOrderWriteModel eOrderWriteModel, Model model){
-        //towrzę nowe zamówienie
-         EOrder eOrder = new EOrder();
-         eOrder.setClient(personService.findClientById(1));
-         eOrder.setStatus(EOrderStatus.NEW);
-         eOrder.setSubDateTime(LocalDateTime.now());
-
-          //dodaje do zamówienia produkty na podstawie pobranych kluczy
-        for (Long id:eOrderWriteModel.getProducts()) {
-            eOrder.addProduct(productService.findById(id));
-        }
-
-        eOrderService.save(eOrder);
-
-        model.addAttribute("eorder", eOrder);
-
-        return "pages/client-order";
-    }
-
-//    @PostMapping("/order/confirm")
-//    String saveEOrder(@ModelAttribute("eorder") EOrder eOrder, Model model){
-//
-//        eOrderService.save(eOrder);
-//
-//        return "pages/client-confirmation";
-//    }
 
     @GetMapping("/products")
     String products(Model model){
@@ -74,5 +47,33 @@ public class ClientController {
         return "pages/client-products";
     }
 
+
+    @PostMapping("/order")
+    String saveOrder(@ModelAttribute("eorder") EOrderWriteModel eOrderWriteModel, Model model){
+
+        //sprawdzenie czy zamówienie nie jest puste
+        if (eOrderWriteModel.getProducts().size() == 0){
+            return "pages/client-empty-order-message";
+        }
+
+        //towrzenie nowego zamówienia
+         EOrder eOrder = new EOrder();
+         eOrder.setClient(personService.findClientById(1));
+         eOrder.setStatus(EOrderStatus.NEW);
+         eOrder.setSubDateTime(LocalDateTime.now());
+
+          //dodanie do zamówienia produktów na podstawie pobranych kluczy
+        for (Long id:eOrderWriteModel.getProducts()) {
+            eOrder.addProduct(productService.findById(id));
+        }
+
+        //zapis do bazy
+        eOrderService.save(eOrder);
+
+        //zwrócone zostaje podsumowanie zamówienia
+        model.addAttribute("eorder", eOrder);
+
+        return "pages/client-order";
+    }
 
 }
