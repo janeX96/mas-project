@@ -4,6 +4,7 @@ import mas.masproject.dto.EOrderReadModel;
 import mas.masproject.dto.EOrderWriteModel;
 import mas.masproject.models.EOrder;
 import mas.masproject.models.Packer;
+import mas.masproject.models.Product;
 import mas.masproject.models.enums.EOrderStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,6 +55,10 @@ public class EOrderService {
         order.setPacker(packer);
         order.setShipmentInfo(info);
         order.setStatus(EOrderStatus.IN_PROGRESS);
+
+        for (Product p: order.getProducts()) {
+            p.setCount(p.getCount()-1);
+        }
         entityManager.merge(order);
     }
 
@@ -62,6 +67,12 @@ public class EOrderService {
     }
 
     public void removeCanceledEOrders(){
-        List<EOrder> canceledEOrders = entityManager.createQuery("delete from EOrder where status=?1").setParameter(1,"CANCELED").getResultList();
+        List<EOrder> canceledEOrders = entityManager.createQuery("from EOrder where status=?1").setParameter(1,EOrderStatus.CANCELED).getResultList();
+
+        for (EOrder eOrder: canceledEOrders) {
+            eOrder.deleteEOrder();
+            entityManager.merge(eOrder);
+            entityManager.remove(eOrder);
+        }
     }
 }

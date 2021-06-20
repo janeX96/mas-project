@@ -97,6 +97,12 @@ public class Starter implements CommandLineRunner {
 
         repairService.update(repair);
 
+        order3.cancel();
+        eOrderService.update(order3);
+
+        eOrderService.removeCanceledEOrders();
+
+
 
     }
 }

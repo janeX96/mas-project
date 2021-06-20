@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "eorder")
@@ -112,7 +113,10 @@ public class EOrder {
 
     public void setClient(Client client) {
         this.client = client;
-        client.addEOrder(this);
+
+        if (client != null){
+            client.addEOrder(this);
+        }
     }
 
     public Packer getPacker() {
@@ -121,7 +125,10 @@ public class EOrder {
 
     public void setPacker(Packer packer) {
         this.packer = packer;
-        packer.addEOrder(this);
+
+        if (packer != null){
+            packer.addEOrder(this);
+        }
     }
 
     public String getShipmentInfo() {
@@ -144,7 +151,26 @@ public class EOrder {
             this.products.remove(product);
             product.removeEOrder(this);
         }
+    }
 
+
+    public void cancel(){
+        this.setStatus(EOrderStatus.CANCELED);
+        this.setFinishDateTime(LocalDateTime.now());
+    }
+
+    public void deleteEOrder(){
+        // usunięcie wszystkich produktów - zerwanie więzów
+        List<Product> pList = getProducts().stream().collect(Collectors.toList());
+        for (Product p: pList) {
+            removeProduct(p);
+        }
+        //zerwanie więzów z klientem
+        client.removeEOrder(this);
+        //oraz z pakowaczem
+        if (packer != null){
+            packer.removeEOrder(this);
+        }
 
     }
 }

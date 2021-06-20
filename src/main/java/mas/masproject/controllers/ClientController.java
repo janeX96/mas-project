@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("client")
@@ -38,7 +39,11 @@ public class ClientController {
 
     @GetMapping("/products")
     String products(Model model){
-        List<Product> products = productService.getAllProducts();
+        //przekazujemy produkty którcyh stan magazynowy jest wiekszy niż 0
+        List<Product> products = productService.getAllProducts()
+                                                .stream()
+                                                .filter(p -> p.getCount()>0).collect(Collectors.toList());
+
         EOrderWriteModel eOrder = new EOrderWriteModel();
 
         model.addAttribute("products", products);

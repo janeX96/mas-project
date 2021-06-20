@@ -81,4 +81,11 @@ public class Client extends Person {
     public void addRepair(Repair repair) {
         this.repairs.add(repair);
     }
+
+    public void removeEOrder(EOrder eOrder) {
+        if (this.orders.contains(eOrder)){
+            orders.remove(eOrder);
+            eOrder.setClient(null);
+        }
+    }
 }

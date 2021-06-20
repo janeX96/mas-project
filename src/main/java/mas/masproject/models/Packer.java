@@ -62,4 +62,10 @@ public class Packer extends Employee{
         return count;
     }
 
+    public void removeEOrder(EOrder eOrder) {
+        if (this.orders.contains(eOrder)){
+            this.orders.remove(eOrder);
+            eOrder.setPacker(null);
+        }
+    }
 }

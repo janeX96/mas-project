@@ -13,8 +13,8 @@ public class ScheduleTask {
         this.eOrderService = eOrderService;
     }
 
-    // wykonanie o 00:00 pierwszego dnia każdego miesiąca
-    @Scheduled(cron="0 0 0 1 1/1 *")
+    // wykonywane pierwszego dnia każdego miesiąca o godz 12:00
+    @Scheduled(cron="0 0 12 1 * ?")
     public void removeCanceledEOrders(){
         eOrderService.removeCanceledEOrders();
     }

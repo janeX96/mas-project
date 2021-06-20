@@ -70,6 +70,8 @@ public class EOrderController {
     public String updateOrder(@PathVariable int id, @ModelAttribute EOrderWriteModel toUpdate, Model model){
 
         Packer packer = personService.findById(toUpdate.getPackerId());
+
+        //aktualizacj zamówienia o dodatkowe informacje
         eOrderService.updateEOrder(id, packer, toUpdate.getInfo());
 
         return "pages/confirmation";
