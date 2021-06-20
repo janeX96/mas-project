@@ -10,10 +10,12 @@ import mas.masproject.services.PersonService;
 import mas.masproject.services.ProductService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.time.LocalDateTime;
 
 @SpringBootApplication
+@EnableScheduling
 public class MasProjectApplication {
 
 	public static void main(String[] args) {

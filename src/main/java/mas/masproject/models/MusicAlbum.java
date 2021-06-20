@@ -74,4 +74,14 @@ public class MusicAlbum extends Product{
     public void setMediaType(AlbumType mediaType) {
         this.mediaType = mediaType;
     }
+
+    @Override
+    public String toString() {
+        return "Album: " +
+                 title +
+                ", wykonawca: " + performer +
+                ", rok: " + pubYear +
+                ", długość: " + length +
+                ", nośnik: " + mediaType;
+    }
 }

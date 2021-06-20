@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grajek - sklep muzyczny online</title>
+    <link rel="stylesheet" href="\css\style.css" />
+</head>
+<body>
+<header>
+    <div> <h1 style="font-size:40px">Grajek</h1>
+        <p style="font-size:20px">sklep muzyczny online</p>
+    </div>
+    <img src="/images/logo.jpg" alt="Logo" style="width:150px;height:150px">
+</header>
+<nav>
+    <ul>
+        <li><a href="/client/index" class="myButton">Strona główna</a></li>
+        <li><a href="/client/products" class="myButton">Złóż zamówienie</a></li>
+    </ul>
+</nav>
+<main>
+    <h2>Nowe zamówienie</h2>
+    <form class="form" th:object="${eorder}" th:action="@{/client/order}" method="post">
+        <label for="products">Wybór produktów:</label>
+        <select name="products" id="products" th:field="*{products}" multiple="multiple" style="height: 200px">
+            <option th:each="product : ${products}" th:value="${product.getProductId()}"
+                    th:text="${product}" ></option>
+        </select>
+        <div class="form-buttons">
+            <input type="submit" class="form-button-submit" value="Złóż zamówienie"/>
+        </div>
+    </form>
+
+</main>
+<footer>
+    Jan Klejn, s16503
+</footer>
+</body>
+</html>

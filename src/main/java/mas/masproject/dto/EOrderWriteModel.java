@@ -7,7 +7,9 @@ import mas.masproject.models.enums.EOrderStatus;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class EOrderWriteModel {
@@ -15,6 +17,8 @@ public class EOrderWriteModel {
     private long packerId;
 //    private Packer packer;
     private String info;
+
+    private List<Long> products = new ArrayList<>();
 
     public EOrderWriteModel(EOrder eOrder) {
         this.id = eOrder.geteOrderId();
@@ -39,8 +43,15 @@ public class EOrderWriteModel {
         this.packerId = packerId;
     }
 
+    public List<Long> getProducts() {
+        return products;
+    }
 
-//    public Packer getPacker() {
+    public void setProducts(List<Long> products) {
+        this.products = products;
+    }
+
+    //    public Packer getPacker() {
 //        return packer;
 //    }
 //

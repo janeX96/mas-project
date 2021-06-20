@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
@@ -47,13 +48,6 @@ public class EOrderService {
         return res;
     }
 
-//    @Transactional
-//    public void updateEOrder(long id, EOrderWriteModel updateFrom){
-//        EOrder order = findById(id);
-//        order.setPacker();
-//        entityManager.merge(updateFrom);
-//    }
-
     @Transactional
     public void updateEOrder(int id, Packer packer, String info) {
         EOrder order = findById(id);
@@ -65,5 +59,9 @@ public class EOrderService {
 
     public List<EOrder> getEOrdersByStatus(EOrderStatus status) {
         return entityManager.createQuery("from EOrder where status =?1").setParameter(1,status).getResultList();
+    }
+
+    public void removeCanceledEOrders(){
+        List<EOrder> canceledEOrders = entityManager.createQuery("delete from EOrder where status=?1").setParameter(1,"CANCELED").getResultList();
     }
 }

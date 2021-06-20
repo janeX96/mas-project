@@ -15,14 +15,15 @@
 </header>
 <nav>
     <ul>
-        <li><a href="/index" class="myButton">Strona główna</a></li>
-        <li><a href="/orders/list" class="myButton">Nowe Zamówienia</a></li>
-        <li><a href="/orders" class="myButton">Zamówienia w realizacji</a></li>
+        <li><a href="/client/index" class="myButton">Strona główna</a></li>
+        <li><a href="/client/products" class="myButton">Złóż zamówienie</a></li>
     </ul>
 </nav>
 <main>
-    <h3>Zamówienie przekazane do realizacji</h3>
-
+    <h2>Strona główna</h2>
+    <p>txt...</p>
+    <script type="text/javascript" th:src="@{js/actions.js}"></script>
+    <button type="button" th:onclick="showAlert()">Show Alert</button>
 </main>
 <footer>
     Jan Klejn, s16503

@@ -64,10 +64,9 @@ public class Instrument extends Product {
 
     @Override
     public String toString() {
-        return "Instrument{" +
-                "name='" + name + '\'' +
-                ", producer='" + producer + '\'' +
-                '}';
+        return "Instrument: " +
+                 name +
+                ", producent: " + producer;
     }
 
     public void addRepair(Luthier luthier, Client client){

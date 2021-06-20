@@ -66,4 +66,8 @@ public class PersonService {
     public Packer findById(long id) {
        return (Packer)entityManager.createQuery("from Packer where id=?1").setParameter(1,id).getSingleResult();
     }
+
+    public Client findClientById(long id) {
+        return (Client)entityManager.createQuery("from Client where id=?1").setParameter(1,id).getSingleResult();
+    }
 }

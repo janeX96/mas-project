@@ -20,20 +20,27 @@ public class ProductService {
     }
 
 
-    @Transactional
     public Product addProduct(Product toCreate){
         entityManager.persist(toCreate);
         return toCreate;
     }
 
-    @Transactional
+
     public Product update(Product toCreate){
         entityManager.merge(toCreate);
         return toCreate;
     }
 
+    public List<Product> getAllProducts() {
+        return entityManager.createQuery("from Product").getResultList();
+    }
+
     public List<Instrument> getAllInstruments() {
         return entityManager.createQuery("from Product where type = Instrument").getResultList();
+    }
+
+    public Product findById(long id){
+        return (Product) entityManager.createQuery("from Product where id=?1").setParameter(1,id).getSingleResult();
     }
 
 

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grajek - sklep muzyczny online</title>
+    <link rel="stylesheet" href="\css\style.css" />
+</head>
+<body>
+<header>
+    <div> <h1 style="font-size:40px">Grajek</h1>
+        <p style="font-size:20px">sklep muzyczny online</p>
+    </div>
+    <img src="/images/logo.jpg" alt="Logo" style="width:150px;height:150px">
+</header>
+<nav>
+    <ul>
+        <li><a href="/client/index" class="myButton">Strona główna</a></li>
+        <li><a href="/client/products" class="myButton">Złóż zamówienie</a></li>
+    </ul>
+</nav>
+<main>
+    <h2 style="color: #1AD23F">Twoje zamówienie zostało złożone pomyślnie</h2>
+        <table class="table-list">
+            <thead>
+            <tr>
+                <th>Produkt</th>
+                <th>Rodzaj</th>
+                <th>Cena</th>
+            </tr>
+            </thead>
+            <tbody th:each="product : ${eorder.getProducts()}">
+            <tr>
+                <td th:text="${product}"></td>
+                <td th:text="${product.getType()}"></td>
+                <td th:text="${product.getPrize()}"></td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+        <p th:text="${'Wartość: ' + eorder.calc() + ' zł'}"></p>
+        <p><a th:href="${'/client/products'}" class="button-return">Powrót do sklepu</a></p>
+</main>
+<footer>
+    Jan Klejn, s16503
+</footer>
+</body>
+</html>
