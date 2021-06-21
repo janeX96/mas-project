@@ -44,7 +44,7 @@ public class EOrder {
     @NotNull
     private Client client;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne
     private Packer packer;
 
     public EOrder(LocalDateTime subDateTime, LocalDateTime finishDateTime, EOrderStatus status) {

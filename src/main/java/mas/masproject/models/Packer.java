@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Table(name = "packer")
 public class Packer extends Employee{
 
-    @OneToMany(mappedBy = "packer",cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "packer",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private Set<EOrder> orders = new HashSet<>();
 
     public Packer() {
